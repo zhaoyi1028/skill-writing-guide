@@ -66,7 +66,7 @@ tmp="$(mktemp -d)" && curl -fsSL -o "$tmp/skill-writing-guide.skill" \
   && ls "$DEST/skill-writing-guide"
 ```
 
-Success means the listing shows `SKILL.md` and `references/`. The download and unzip steps were tested against a temporary directory; loading and triggering in Claude Code, Codex, and Cursor have not been verified yet. If the network blocks GitHub, say so and ask the user to attach the file instead. Platforms that only accept uploads through a UI (such as Claude.ai) need the user to upload the `.skill` file themselves.
+Success means the listing shows `SKILL.md` and `references/`. The download and unzip steps were tested against a temporary directory; loading and selection were observed once in Codex desktop (see Status); Claude Code and Cursor are not verified yet. If the network blocks GitHub, say so and ask the user to attach the file instead. Platforms that only accept uploads through a UI (such as Claude.ai) need the user to upload the `.skill` file themselves.
 
 ## Usage
 
@@ -80,7 +80,11 @@ Once installed, just ask in natural language, for example:
 ## Status
 
 - Passed structural validation and three rounds of static review.
-- Behavioral testing so far: one run of the opinions-only review case passed (files unchanged by hash; n=1, skill invoked explicitly, tested in Grok Bot). Create, improve, debug, trigger, and cross-platform cases are untested.
+- Behavioral testing so far (all self-reported by the testing agents, n=1 per case, no no-skill baseline):
+  - Grok Bot: one opinions-only review run passed (files unchanged by hash; skill invoked explicitly).
+  - Codex desktop: installed to `~/.agents/skills/`; in a fresh session it was selected without being named. Review, scoped improve (description only, on an isolated copy), and debug requests were run once each, in the same session. No confirmed problems found. Debug separated discovery from execution dependencies and did not blame the description.
+  - Cursor Cloud Agent: not a valid test. A skill installed mid-session did not appear in that session's skill list (cause unconfirmed), so the skill itself was not exercised.
+  - Untested: Claude Code, Cursor local IDE, create mode, false-trigger rate, multiple independent fresh sessions, comparison against not having the skill installed.
 - **No systematic behavioral comparison has been run yet.** `references/validation-and-iteration.md` describes how it should be tested. Test cases and results are welcome.
 - Known neighbor to test against for trigger competition: Cursor's built-in `skill-authoring`.
 
