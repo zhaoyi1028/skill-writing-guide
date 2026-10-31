@@ -80,7 +80,9 @@ Once installed, just ask in natural language, for example:
 ## Status
 
 - Passed structural validation and three rounds of static review.
+- Behavioral testing so far: one run of the opinions-only review case passed (files unchanged by hash; n=1, skill invoked explicitly, tested in Grok Bot). Create, improve, debug, trigger, and cross-platform cases are untested.
 - **No systematic behavioral comparison has been run yet.** `references/validation-and-iteration.md` describes how it should be tested. Test cases and results are welcome.
+- Known neighbor to test against for trigger competition: Cursor's built-in `skill-authoring`.
 
 ## Contributing
 

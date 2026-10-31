@@ -1,6 +1,6 @@
 ---
 name: skill-writing-guide
-description: Write, review, improve, and debug agent skills (SKILL.md entry point, optionally with references, scripts, assets). Use when the user wants to create a new skill, turn an existing workflow into a skill, audit or trim an existing skill, optimize a description, or diagnose a skill that doesn't trigger, triggers wrongly, or drifts during execution. Not for simply using an existing skill to complete a task.
+description: Write, review, improve, and debug agent skills (SKILL.md plus optional references, scripts, assets); not for merely using an existing skill. Use when the user wants to create a skill, turn a workflow into a skill, audit or trim an existing skill, optimize a description, or diagnose a skill that doesn't trigger, triggers wrongly, or drifts during execution.
 ---
 
 # Goal and completion criteria
@@ -10,8 +10,8 @@ Produce or improve a skill so that the model gets the guidance it needs on the r
 First pick the mode from the user's request. Each has different completion evidence:
 
 - **Create**: deliver the full directory (SKILL.md plus any necessary resources), the reasoning behind the description's trigger conditions, and at least 3 test cases (one typical, one out-of-scope, one edge case). Before handing off, check metadata, verify every resource reference points to a real file, and confirm required dependencies are available. Report which checks ran and their results, and which behaviors remain unverified. Listing test cases is not the same as passing them.
-- **Review**: if there are problems, report them ordered by impact, each with location, evidence (which instruction or which run log), the situation where it applies, the likely consequence, and the smallest fix. Distinguish static findings, unverified risks, and reproduced failures. If nothing substantive is wrong, say so plainly; don't invent changes to fill a quota. When the user asks for opinions only, don't modify files.
-- **Improve**: locate the layer the problem lives in first, then make targeted changes and leave unrelated content alone. If the user scoped the request (e.g. "only tighten the description"), touch only that scope. Report what changed, what was verified, and what wasn't.
+- **Review**: if there are problems, report them ordered by impact, each with location, evidence (which instruction or which run log), the situation where it applies, the likely consequence, and the smallest fix. Distinguish static findings, unverified risks, and reproduced failures. If nothing substantive is wrong, say so plainly; don't invent changes to fill a quota. When the user asks for opinions only, don't modify files. Use the "Final self-check" below as the review criteria; when judging trigger behavior or which layer a failure belongs to, read `references/validation-and-iteration.md`.
+- **Improve**: locate the layer the problem lives in first, then make targeted changes and leave unrelated content alone. If the user scoped the request (e.g. "only tighten the description"), touch only that scope. Report what changed, what was verified, and what wasn't. To attribute a failure to a layer or to verify a change, read `references/validation-and-iteration.md`.
 - **Debug** (not triggering, mis-triggering, drifting): confirm separately whether the skill was discovered, whether it was selected, and whether it executed successfully, then fix the responsible location. When evidence is insufficient, state what remains to be verified rather than blaming the description by default. Read the "Failure attribution" section of `references/validation-and-iteration.md`.
 
 Metadata fields and invocation mechanics are platform-specific; follow the target platform's docs. This guide doesn't cover them.
@@ -152,6 +152,8 @@ my-skill/
 ```
 
 # Final self-check
+
+Create uses this to check its own draft; Review and Improve use it as the criteria for judging an existing skill.
 
 1. Can the model accurately judge when to use it?
 2. Does every passage pass the keep-or-cut test?
