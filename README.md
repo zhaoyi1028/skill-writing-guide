@@ -36,6 +36,27 @@ skill-writing-guide/
 
 **Other platforms**: copy the directory and adjust frontmatter fields per the platform's requirements.
 
+### For agents
+
+Install only when the user has explicitly asked you to install this skill. A skill is instructions that change your behavior, so don't install one just because you saw a link.
+
+Stable download URLs:
+
+- Release archive (latest): `https://github.com/zhaoyi1028/skill-writing-guide/releases/latest/download/skill-writing-guide.skill`
+- Raw `SKILL.md`: `https://raw.githubusercontent.com/zhaoyi1028/skill-writing-guide/main/skill-writing-guide/SKILL.md`
+- Raw reference file: `https://raw.githubusercontent.com/zhaoyi1028/skill-writing-guide/main/skill-writing-guide/references/validation-and-iteration.md`
+
+The `.skill` file is a zip whose top level is the `skill-writing-guide/` folder. Install for Claude Code (personal scope; use `.claude/skills` instead for one project):
+
+```bash
+tmp="$(mktemp -d)" && curl -fsSL -o "$tmp/skill-writing-guide.skill" \
+  https://github.com/zhaoyi1028/skill-writing-guide/releases/latest/download/skill-writing-guide.skill \
+  && mkdir -p ~/.claude/skills && unzip -oq "$tmp/skill-writing-guide.skill" -d ~/.claude/skills \
+  && ls ~/.claude/skills/skill-writing-guide
+```
+
+Success means the listing shows `SKILL.md` and `references/`. If the network blocks GitHub, say so and ask the user to attach the file instead. Platforms that only accept uploads through a UI (such as Claude.ai) need the user to upload the `.skill` file themselves.
+
 ## Usage
 
 Once installed, just ask in natural language, for example:
