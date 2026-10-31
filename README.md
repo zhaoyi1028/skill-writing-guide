@@ -32,7 +32,7 @@ skill-writing-guide/
 
 **Claude Code**: copy the `skill-writing-guide/` directory into `~/.claude/skills/` (personal) or your project's `.claude/skills/`.
 
-**Claude.ai**: zip the `skill-writing-guide/` directory so the folder is the top level of the archive, name the file `skill-writing-guide.skill`, and upload it in Settings (the skill-creator `package_skill` script produces this layout).
+**Claude.ai**: download `skill-writing-guide.skill` from Releases and upload it in Settings.
 
 **Other platforms**: copy the directory and adjust frontmatter fields per the platform's requirements.
 
