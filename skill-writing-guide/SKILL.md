@@ -27,11 +27,11 @@ Metadata fields and invocation mechanics are platform-specific; follow the targe
 
 # Description: decides whether the skill is selected
 
-Structure: **specific capability + task conditions where it applies + necessary boundaries**.
+Structure: **specific capability + boundary (only if an adjacent task is easily confused with this one) + task conditions where it applies**.
 
-- Put the most discriminating information first. Installed skills share a fixed budget of always-present context, and descriptions may be truncated.
+- Put the most discriminating information first. Installed skills share a fixed budget of always-present context, and descriptions may be truncated, so anything at the end may be lost. That is why a boundary sits before the "use when" conditions rather than after them.
 - Keywords and file types help recognition but cannot replace task intent.
-- Add exclusions only when an adjacent task is easily confused with this one.
+- Add exclusions only when an adjacent task is easily confused with this one; otherwise leave the boundary out.
 - Set the breadth with trigger tests: check both whether the right requests trigger it and whether keyword-similar requests wrongly trigger it. Don't assume wider is better, and don't pile up every possible keyword.
 
 Compare:
@@ -115,7 +115,7 @@ Trim as needed. No skill needs every section, and filling a section just to comp
 ```markdown
 ---
 name: skill-name
-description: <specific capability>. <task conditions where it applies>. <only if easily confused: not for ...>
+description: <specific capability>; <only if easily confused: not for ...>. <task conditions where it applies>.
 ---
 
 # Goal and completion criteria
