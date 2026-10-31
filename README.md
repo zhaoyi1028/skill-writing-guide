@@ -46,16 +46,27 @@ Stable download URLs:
 - Raw `SKILL.md`: `https://raw.githubusercontent.com/zhaoyi1028/skill-writing-guide/main/skill-writing-guide/SKILL.md`
 - Raw reference file: `https://raw.githubusercontent.com/zhaoyi1028/skill-writing-guide/main/skill-writing-guide/references/validation-and-iteration.md`
 
-The `.skill` file is a zip whose top level is the `skill-writing-guide/` folder. Install for Claude Code (personal scope; use `.claude/skills` instead for one project):
+The `.skill` file is a zip whose top level is the `skill-writing-guide/` folder. Unzip it into your platform's skills directory:
+
+| Platform | User-level directory | Project-level directory |
+|---|---|---|
+| Claude Code | `~/.claude/skills/` | `.claude/skills/` |
+| Codex | `~/.agents/skills/` | `.agents/skills/` |
+| Cursor | `~/.cursor/skills/` or `~/.agents/skills/` | `.cursor/skills/` or `.agents/skills/` |
+
+Directories are taken from each platform's documentation ([Codex](https://learn.chatgpt.com/docs/build-skills), [Cursor](https://cursor.com/docs/skills)); check the current docs if your version differs. Cursor also reads `.claude/skills/` and `.codex/skills/`.
+
+Example for Claude Code (set `DEST` to the directory for your platform and scope):
 
 ```bash
+DEST=~/.claude/skills
 tmp="$(mktemp -d)" && curl -fsSL -o "$tmp/skill-writing-guide.skill" \
   https://github.com/zhaoyi1028/skill-writing-guide/releases/latest/download/skill-writing-guide.skill \
-  && mkdir -p ~/.claude/skills && unzip -oq "$tmp/skill-writing-guide.skill" -d ~/.claude/skills \
-  && ls ~/.claude/skills/skill-writing-guide
+  && mkdir -p "$DEST" && unzip -oq "$tmp/skill-writing-guide.skill" -d "$DEST" \
+  && ls "$DEST/skill-writing-guide"
 ```
 
-Success means the listing shows `SKILL.md` and `references/`. If the network blocks GitHub, say so and ask the user to attach the file instead. Platforms that only accept uploads through a UI (such as Claude.ai) need the user to upload the `.skill` file themselves.
+Success means the listing shows `SKILL.md` and `references/`. The download and unzip steps were tested against a temporary directory; loading and triggering in Claude Code, Codex, and Cursor have not been verified yet. If the network blocks GitHub, say so and ask the user to attach the file instead. Platforms that only accept uploads through a UI (such as Claude.ai) need the user to upload the `.skill` file themselves.
 
 ## Usage
 
