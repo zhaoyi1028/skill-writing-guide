@@ -66,7 +66,7 @@ tmp="$(mktemp -d)" && curl -fsSL -o "$tmp/skill-writing-guide.skill" \
   && ls "$DEST/skill-writing-guide"
 ```
 
-Success means the listing shows `SKILL.md` and `references/`. The download and unzip steps were tested against a temporary directory; loading and selection were observed once in Codex desktop (see Status); Claude Code and Cursor are not verified yet. If the network blocks GitHub, say so and ask the user to attach the file instead. Platforms that only accept uploads through a UI (such as Claude.ai) need the user to upload the `.skill` file themselves.
+Success means the listing shows `SKILL.md` and `references/`. The download and unzip steps were tested against a temporary directory; loading and selection were observed in Codex desktop and Claude Code (see Status, small samples); Cursor is not verified yet. If the network blocks GitHub, say so and ask the user to attach the file instead. Platforms that only accept uploads through a UI (such as Claude.ai) need the user to upload the `.skill` file themselves.
 
 ## Usage
 
@@ -84,7 +84,9 @@ Once installed, just ask in natural language, for example:
   - Grok Bot: one opinions-only review run passed (files unchanged by hash; skill invoked explicitly).
   - Codex desktop: installed to `~/.agents/skills/`; in a fresh session it was selected without being named. Review, scoped improve (description only, on an isolated copy), and debug requests were run once each, in the same session. No confirmed problems found. Debug separated discovery from execution dependencies and did not blame the description.
   - Cursor Cloud Agent: not a valid test. A skill installed mid-session did not appear in that session's skill list (cause unconfirmed), so the skill itself was not exercised.
-  - Untested: Claude Code, Cursor local IDE, create mode, false-trigger rate, multiple independent fresh sessions, comparison against not having the skill installed.
+  - Claude Code 2.1.x (installed at project level in `.claude/skills/`, each request in its own fresh `claude -p` session, author-run against a synthetic flawed sample skill): the catalog held 579 skills, including `skill-creator` and a stale same-name copy. An unnamed "audit my skill, opinions only" request invoked this skill in 1 of 3 runs; the invoked run followed the Review format (ordered by impact, evidence, consequence, smallest fix, static findings marked unverified). Files were unchanged in all 3. A scoped "tighten the description" request, a "my skill never triggers" request (real cause: flat `.md` file instead of `folder/SKILL.md`), and a near-miss negative ("use my commit-message skill") ran once each and did not invoke it; the first two were still answered correctly without it, and there was no false trigger. These cases do not show a benefit from the skill.
+  - Untested: Cursor local IDE, create mode, false-trigger rate beyond one case, selection rate in a catalog without competing skills, comparison against not having the skill installed.
+  - Install tip: a stale same-name copy elsewhere (for example an older upload on your account) competes with this one; remove it when updating.
 - **No systematic behavioral comparison has been run yet.** `references/validation-and-iteration.md` describes how it should be tested. Test cases and results are welcome.
 - Known neighbor to test against for trigger competition: Cursor's built-in `skill-authoring`.
 
